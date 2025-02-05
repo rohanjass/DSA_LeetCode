@@ -2,9 +2,9 @@ class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
         int s=times.size();
-        unordered_map<int, vector<pair<int, int>>> adj;
+        unordered_map<int,vector<pair<int,int>>>adj;
         for(const auto& time:times){
-            adj[time[0]].emplace_back(make_pair(time[1], time[2]));
+            adj[time[0]].emplace_back(make_pair(time[1],time[2]));
         }
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> minHeap;
         minHeap.push({0,k});
@@ -25,7 +25,6 @@ public:
                     if(!visited.count(n2)){
                         minHeap.push({w1+w2,n2});
                     }
-
                 }
             }
         }
