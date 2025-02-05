@@ -2,13 +2,12 @@ class Solution {
 public:
     int maxProduct(vector<int>& nums) {
         int res=nums[0];
-        for(int i=0;i<nums.size();i++){
-            int curr=nums[i];
-            res=max(res,curr);
-            for(int j=i+1;j<nums.size();j++){
-                curr*=nums[j];
-                res=max(res,curr);
-            }
+        int resMin=1,resMax=1;
+        for(int num:nums){
+            int temp=resMax*num;//resmax change hojaega same iteration me to resMin me galat resMax jayega
+            resMax=max(max(resMax*num,num*resMin),num);
+            resMin=min(min(temp,num*resMin),num);
+            res=max(res,resMax);
         }
     return res;
     }
