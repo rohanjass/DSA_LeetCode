@@ -13,10 +13,7 @@ class Solution {
 public:
     void dfs(int depth,TreeNode* node,vector<int>& res){
         if(node==nullptr) return;
-        if(depth==res.size()){
-            res.push_back(node->val);
-        }
-
+        if(depth==res.size()) res.push_back(node->val);
         dfs(depth+1,node->right,res);
         dfs(depth+1,node->left,res);
     }
