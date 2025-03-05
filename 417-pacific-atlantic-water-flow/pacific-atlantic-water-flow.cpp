@@ -1,34 +1,31 @@
 class Solution {
-    vector<pair<int, int>> directions = {{1, 0}, {-1, 0},{0, 1}, {0, -1}};
+    vector<pair<int,int>>dir={{1,0},{0,1},{-1,0},{0,-1}};
 public:
-    void dfs(int r,int c,vector<vector<bool>>& ocean,vector<vector<int>>& heights){
-        ocean[r][c]=true;
-        for(auto [nr,nc]:directions){
-           int row=r+nr;
-           int col=c+nc;
-           if(row>=0 && col>=0 && row<heights.size() && col<heights[0].size() && !ocean[row][col] && heights[row][col]>=heights[r][c]){
-                dfs(row,col,ocean,heights);
-           }
+    void dfs(int r,int c,vector<vector<bool>>& oc,vector<vector<int>>& arr){
+        oc[r][c]=true;
+        for(auto& d:dir){
+            int nr=r+d.first;
+            int nc=c+d.second;
+            if(nr>=0 && nc>=0 && nr<arr.size() && nc<arr[0].size() && oc[nr][nc]==false && arr[nr][nc]>=arr[r][c]){
+                dfs(nr,nc,oc,arr);
+            }
         }
-
     }
-
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        vector<vector<int>>res;
-        int ROWS=heights.size();
-        int COLS=heights[0].size();
-        vector<vector<bool>> pcf(ROWS,vector<bool>(COLS,false));
-        vector<vector<bool>> atl(ROWS,vector<bool>(COLS,false));
-        for(int c=0;c<COLS;c++){
-            dfs(0,c,pcf,heights);//top pcf ocean
-            dfs(ROWS-1,c,atl,heights);//bottom atl ocean
+        vector<vector<int>> res;
+        int ROW=heights.size(),COL=heights[0].size();
+        vector<vector<bool>>pcf(ROW,vector<bool>(COL,false));
+        vector<vector<bool>>atl(ROW,vector<bool>(COL,false));
+        for(int r=0;r<ROW;r++){
+            dfs(r,0,pcf,heights);//left pcf oc
+            dfs(r,COL-1,atl,heights);//right atl oc
         }
-        for(int r=0;r<ROWS;r++){
-            dfs(r,0,pcf,heights);//LEFT pcf ocean
-            dfs(r,COLS-1,atl,heights);//RIGHT atl ocean
+        for(int c=0;c<COL;c++){
+            dfs(0,c,pcf,heights);//top pcf oc
+            dfs(ROW-1,c,atl,heights);//bottom atl oc
         }
-        for(int i=0;i<ROWS;i++){
-            for(int j=0;j<COLS;j++){
+        for(int i=0;i<ROW;i++){
+            for(int j=0;j<COL;j++){
                 if(pcf[i][j] && atl[i][j]){
                     res.push_back({i,j});
                 }
