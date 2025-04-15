@@ -11,21 +11,18 @@
  */
 class Solution {
 public:
-    int Tran(TreeNode* node,int& cnt,int pathMax){
-        if(node==0) return 0;
-        
-
-        if(node->val>=pathMax) {
-            pathMax=max(pathMax,node->val);
-            cnt++;
+    void dfs(int &cnt,int pathMax,TreeNode* root){
+        if(!root) return;
+        if(root->val >=pathMax){
+        cnt++;
+            pathMax=root->val;
         }
-        Tran(node->left,cnt,pathMax);
-        Tran(node->right,cnt,pathMax);
-    return cnt;
+        dfs(cnt,pathMax,root->left);
+        dfs(cnt,pathMax,root->right);
     }
     int goodNodes(TreeNode* root) {
         int cnt=0,pathMax=INT_MIN;
-        Tran(root,cnt,pathMax);
+        dfs(cnt,pathMax,root);
         return cnt;
     }
 };
