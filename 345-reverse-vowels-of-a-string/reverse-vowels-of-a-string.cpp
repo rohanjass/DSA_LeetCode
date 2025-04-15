@@ -5,16 +5,19 @@ public:
     return false;
     }
     string reverseVowels(string s) {
-        stack<char> st;
-        for(char c:s){
-            if(isVowel(c)) st.push(c);
-        }
-        for(int i=0;i<s.size();i++){
-            if(isVowel(s[i])){
-                char top=st.top();
-                st.pop();
-                s[i]=top;
-            }   
+        int low=0,high=s.size()-1;
+        while(low<high){
+            if(!isVowel(s[low])){
+                low++;
+            } else if(!isVowel(s[high])){
+                high--;
+            } else{
+                char temp=s[low];
+                s[low]=s[high];
+                s[high]=temp;
+                low++;
+                high--;
+            }
         }
     return s;
     }
