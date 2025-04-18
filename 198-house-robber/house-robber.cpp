@@ -1,12 +1,19 @@
 class Solution {
 public:
-    int rob(vector<int>& nums) {
-        int rob1=0,rob2=0;
-        for(int rob:nums){
-            int temp=max(rob+rob1,rob2);
-            rob1=rob2;
-            rob2=temp;
+    int dfs(int n,vector<int>& nums,vector<int>& dp){
+        if(n==0){
+            return nums[0];
         }
-    return max(rob1,rob2);
+        if(n==1) return max(nums[1],nums[0]);
+        if(dp[n]!=-1) return dp[n];
+        int rob1=dfs(n-1,nums,dp);
+        int rob2=dfs(n-2,nums,dp)+nums[n];
+        dp[n]=max(rob1,rob2);
+    return dp[n];
+    }
+    int rob(vector<int>& nums) {
+        int n=nums.size()-1;
+        vector<int>dp(n+1,-1);
+        return dfs(n,nums,dp);
     }
 };
