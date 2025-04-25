@@ -1,15 +1,17 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
-        int n=nums.size();
-        vector<int> count(n+1,0);
-        for(int num:nums){
-            count[num]++;
-        }
         int dup=-1,missing=-1;
-        for(int i=0;i<=nums.size();i++){
-            if(count[i]==2) dup=i;
-            else if(count[i]==0) missing=i;
+        for(int i=0;i<nums.size();i++){
+            int ind=abs(nums[i])-1;
+            if(nums[ind]<0){
+                dup=abs(nums[i]);
+            } else{
+                nums[ind]=-(nums[ind]);
+            }
+        }
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>0) missing=i+1;
         }
     return {dup,missing};
     }
