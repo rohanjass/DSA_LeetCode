@@ -1,19 +1,21 @@
 class Solution {
 public:
-    bool dfs(int num,unordered_set<int>& set){
-        if(num==1) return true;
-        if(set.count(num)) return false;
-        set.insert(num);
+    int getNext(int n){
         int sum=0;
-        while(num!=0){
-            int number=num%10;
-            sum+=(number)*(number);
-            num=num/10;
+        while(n>0){
+            int digit=n%10;
+            sum+=digit*digit;
+            n=n/10;
         }
-    return dfs(sum,set);
+    return sum;
     }
     bool isHappy(int n) {
-        unordered_set<int> set;
-        return dfs(n,set);
+        int slow=n;
+        int fast=getNext(n);
+        while(fast!=1 && slow!=fast){
+            slow=getNext(slow);
+            fast=getNext(getNext(fast));
+        }
+    return fast==1;
     }
 };
