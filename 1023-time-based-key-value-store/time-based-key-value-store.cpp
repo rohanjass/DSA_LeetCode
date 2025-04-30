@@ -1,5 +1,4 @@
 class TimeMap {
-private:
     unordered_map<string,vector<pair<int,string>>>keyStore;
 public:
     TimeMap() {
@@ -19,7 +18,7 @@ public:
             if(values[mid].first<=timestamp){
                 res=values[mid].second;
                 low=mid+1;
-            } else {
+            } else{
                 high=mid-1;
             }
         }
