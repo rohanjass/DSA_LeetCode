@@ -18,11 +18,10 @@ public:
         int nodeVal=preorder[preInd];
         preInd++;
         TreeNode* root=new TreeNode(nodeVal);
-        int mid=mp[nodeVal];
-        root->left=dfs(preorder,l,mid-1);
-        root->right=dfs(preorder,mid+1,r);
+        int indInInorder=mp[nodeVal];
+        root->left=dfs(preorder,l,indInInorder-1);
+        root->right=dfs(preorder,indInInorder+1,r);
     return root;
-
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         for(int i=0;i<inorder.size();i++){
