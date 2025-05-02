@@ -1,31 +1,28 @@
 class Solution {
-    unordered_map<int,vector<int>>preMap;
-    unordered_set<int>visit;
-
+    unordered_map<int,vector<int>> mp;
+    unordered_set<int>visited;//visiting courses currently
 public:
     bool dfs(int crs){
-        if(visit.count(crs)) return false;//already visited
-        if(preMap[crs].empty()) return true;//course comleted succesfully
-        visit.insert(crs);
-        for(int c:preMap[crs]){
+        if(visited.count(crs)) return false;
+        if(mp[crs].empty()) return true;
+        visited.insert(crs);
+        for(int c:mp[crs]){
             if(!dfs(c)) return false;
         }
-        visit.erase(crs);
-        preMap[crs].clear();
+        visited.erase(crs);
+        mp[crs]={};
     return true;
     }
-
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         for(int i=0;i<numCourses;i++){
-            preMap[i]={};
+            mp[i]={};
         }
         for(const auto& p:prerequisites){
-            preMap[p[0]].push_back(p[1]);
+            mp[p[0]].push_back(p[1]);
         }
-        for(int c=0;c<numCourses;c++){
-            if(!dfs(c)) return false;
+        for(int i=0;i<numCourses;i++){
+            if(!dfs(i)) return false;
         }
     return true;
     }
-
 };
