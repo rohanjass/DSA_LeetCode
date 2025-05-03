@@ -6,7 +6,7 @@ public:
             mp[s[i]]=i;
         }
         vector<int> res;
-        int size=0,end=0;
+        int end=0,size=0;
         for(int i=0;i<s.size();i++){
             size++;
             end=max(end,mp[s[i]]);
