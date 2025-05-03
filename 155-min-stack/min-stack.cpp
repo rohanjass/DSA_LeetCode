@@ -1,34 +1,38 @@
 class MinStack {
-    int findMiniInStack(stack<int>st,int mini){
-        int n=st.size();
-        for(int i=0;i<n;i++){
-            if(mini>st.top()) mini=st.top();
-            st.pop();
-        }
-    return mini;
-    }
+    stack<long long> st;
+    long long mini=INT_MAX;
 public:
-    stack<int>st;
-    int mini=INT_MAX;
-    MinStack() {
+    MinStack() { 
     }
     
     void push(int val) {
-        if(mini>val) mini=val;
-        st.push(val);
+        long long val2=(long long)val;
+        if(st.empty()){
+            st.push(val2);
+            mini=val2;
+        }else{
+            if(mini<val2){
+                st.push(val2);
+            } else{
+                st.push(long(2*(val2))-mini);
+                mini=val2;
+            }
+        }
     }
     
     void pop() {
-        if(st.top()==mini){
-            st.pop();
-            mini=INT_MAX;
-            mini=findMiniInStack(st,mini);
+        long long topEle=st.top();
+        st.pop();
+        if(topEle<mini){
+            mini=2*mini-topEle;
         }
-        else st.pop();
     }
     
     int top() {
-        return st.top();
+        if(st.empty()) return -1;
+        long long x=st.top();
+        if(x<mini) return mini;
+        else return x;
     }
     
     int getMin() {
