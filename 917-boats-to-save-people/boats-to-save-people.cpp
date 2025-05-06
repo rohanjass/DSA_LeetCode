@@ -2,21 +2,18 @@ class Solution {
 public:
     int numRescueBoats(vector<int>& people, int limit) {
         int n=people.size();
-        sort(people.begin(), people.end());
-        int st=0;
-        int end=n-1;
-        int cnt=0;
-        while(end>=st){
-            if(people[st]+people[end]<=limit){
-            
-                st++;
-                end--;
+        int i=0,j=n-1;
+        int noOfBoats=0;
+        sort(people.begin(),people.end());
+        while(i<=j){
+            if(people[i]+people[j]<=limit){
+                i++;
+                j--;
+            } else{
+                j--;
             }
-            else{
-                end--;
-            }
-            cnt++;
+        noOfBoats++;
         }
-        return cnt;
+    return noOfBoats;
     }
 };
