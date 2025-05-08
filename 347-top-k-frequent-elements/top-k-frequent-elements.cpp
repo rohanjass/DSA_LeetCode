@@ -6,14 +6,17 @@ public:
         for(int n:nums){
             mp[n]++;
         }
-        vector<pair<int,int>>arr;
-        for(const auto& p:mp){
-            arr.push_back({p.second,p.first});
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> heap;
+        for(auto& i:mp){
+            heap.push({i.second,i.first});
+            if(heap.size()>k){
+                heap.pop();
+            }
         }
-        sort(arr.rbegin(),arr.rend());
 
         for(int i=0;i<k;i++){
-            res.push_back(arr[i].second);
+            res.push_back(heap.top().second);
+            heap.pop();
         }
     return res;
     }
