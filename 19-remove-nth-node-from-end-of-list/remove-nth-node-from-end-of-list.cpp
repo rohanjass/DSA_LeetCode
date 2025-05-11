@@ -14,14 +14,13 @@ public:
         ListNode* slow=head;
         ListNode* fast=head;
         for(int i=0;i<n;i++) fast=fast->next;
-        if(fast==NULL) return head->next;
+        if(fast==nullptr) return head->next;
         while(fast && fast->next){
             slow=slow->next;
             fast=fast->next;
         }
-        ListNode* nextTemp=slow->next;
-        slow->next=nextTemp->next;
-        delete(nextTemp);
-    return head;
+        ListNode* nextToSlow=slow->next;
+        slow->next=nextToSlow->next;
+    return head; 
     }
 };
