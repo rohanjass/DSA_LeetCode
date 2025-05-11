@@ -21,13 +21,13 @@ public:
 
 class Solution {
 public:
-    Node* dfs(Node* node,unordered_map<Node*,Node*>& mp){
+    Node* dfs(Node* node, unordered_map<Node*,Node*>& mp){
         if(node==nullptr) return nullptr;
         if(mp.count(node)) return mp[node];
         Node* copy=new Node(node->val);
         mp[node]=copy;
-        for(auto neigh:node->neighbors){
-            copy->neighbors.push_back(dfs(neigh,mp));
+        for(auto& nei:node->neighbors){
+            copy->neighbors.push_back(dfs(nei,mp));
         }
     return copy;
     }
