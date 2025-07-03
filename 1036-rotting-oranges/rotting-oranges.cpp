@@ -9,14 +9,15 @@ public:
                 if(grid[i][j]==2) q.push({i,j});
             }
         }
-        vector<pair<int,int>> dir={{1,0},{0,1},{-1,0},{0,-1}};
+        vector<pair<int,int>>dir={{1,0},{0,1},{-1,0},{0,-1}};
         while(!q.empty() && fresh){
             int len=q.size();
             for(int i=0;i<len;i++){
-                auto node=q.front();
+                auto cur=q.front();
                 q.pop();
-                int row=node.first;
-                int col=node.second;
+                int row=cur.first;
+                int col=cur.second;
+
                 for(auto& d:dir){
                     int nr=row+d.first;
                     int nc=col+d.second;
@@ -29,7 +30,6 @@ public:
             }
             time++;
         }
-    return (fresh==0)? time:-1;
-
+        return (fresh==0)? time:-1;
     }
 };
