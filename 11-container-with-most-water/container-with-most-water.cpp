@@ -4,11 +4,11 @@ public:
         int l=0,r=height.size()-1;
         int area=0,maxArea=0;
         while(l<r){
-            int area=min(height[l],height[r])*(r-l);
+            area=(r-l)*min(height[l],height[r]);
             maxArea=max(maxArea,area);
             if(height[l]<=height[r]){
                 l++;
-            } else {
+            } else{
                 r--;
             }
         }
