@@ -11,16 +11,15 @@
  */
 class Solution {
 public:
-    void dfs(int depth,TreeNode* node,vector<int>& res){
-        if(node==nullptr) return;
-        if(depth==res.size()) res.push_back(node->val);
-        dfs(depth+1,node->right,res);
-        dfs(depth+1,node->left,res);
+    void dfs(TreeNode* root,int depth,vector<int>& res){
+        if(root==nullptr) return;
+        if(depth==res.size()) res.push_back(root->val);
+        dfs(root->right,depth+1,res);
+        dfs(root->left,depth+1,res);
     }
     vector<int> rightSideView(TreeNode* root) {
-
         vector<int> res;
-        dfs(0,root,res);
+        dfs(root,0,res);
         return res;
     }
 };
