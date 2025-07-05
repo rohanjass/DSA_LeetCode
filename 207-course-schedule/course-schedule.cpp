@@ -1,15 +1,15 @@
 class Solution {
-    unordered_map<int,vector<int>> mp;
-    unordered_set<int>visited;//visiting courses currently
+    unordered_map<int,vector<int>>mp;
+    unordered_set<int> visiting;
 public:
     bool dfs(int crs){
-        if(visited.count(crs)) return false;
+        if(visiting.count(crs)) return false;
         if(mp[crs].empty()) return true;
-        visited.insert(crs);
+        visiting.insert(crs);
         for(int c:mp[crs]){
             if(!dfs(c)) return false;
         }
-        visited.erase(crs);
+        visiting.erase(crs);
         mp[crs]={};
     return true;
     }
