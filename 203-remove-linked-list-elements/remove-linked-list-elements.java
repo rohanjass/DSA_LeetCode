@@ -20,11 +20,10 @@ class Solution {
         while(temp!=null){
             if(temp.val==val){
                 prev.next=temp.next;
-                temp=temp.next;
             }else{
                 prev=temp;
-                temp=temp.next;
             }
+                temp=temp.next;
         }
     return head;
     }
