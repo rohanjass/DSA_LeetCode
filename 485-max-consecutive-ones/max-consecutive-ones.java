@@ -9,7 +9,6 @@ class Solution {
                 j++;
                 i=j;
             }
-        
         }
     return maxC;
     }
