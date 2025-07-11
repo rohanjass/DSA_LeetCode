@@ -1,14 +1,15 @@
 class Solution {
 public:
-    vector<vector<int>> memo;
-    int dfs(int r,int c,int m,int n){
-        if(r==m-1 && c==n-1) return 1;
-        if(r>=m || c>=n) return 0;
-        if(memo[r][c]!=-1) return memo[r][c];
-        return memo[r][c]=dfs(r+1,c,m,n) + dfs(r,c+1,m,n);
+    int dfs(int i,int j,int m,int n,vector<vector<int>>& dp){
+        if(i<0 || j<0 || i>=m || j>=n) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        if(i==m-1 && j==n-1) return dp[i][j]=1;
+        int right=dfs(i+1,j,m,n,dp);
+        int down=dfs(i,j+1,m,n,dp);
+        return dp[i][j]=right+down;
     }
     int uniquePaths(int m, int n) {
-        memo.resize(m,vector<int>(n,-1));
-        return dfs(0,0,m,n);
+        vector<vector<int>>dp (m,vector<int>(n,-1));
+        return dfs(0,0,m,n,dp);
     }
 };
