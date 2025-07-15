@@ -14,23 +14,23 @@ public:
                 adj[j].push_back({dist,i});
             }
         }
-        int res=0;
         priority_queue<pair<int, int>, vector<pair<int, int>>,greater<pair<int, int>>> minH;
         unordered_set<int>visited;
-        minH.push({0,0});
+        minH.push({0,0});//{cost(dist),node}  ->{0(cost),0(first pair in points)}
+        int res=0;
         while(visited.size()<n){
             auto curr=minH.top();
             minH.pop();
-            int cost=curr.first;
+            int dist=curr.first;
             int node=curr.second;
-            if(visited.count(node)) continue;
-            res+=cost;
+            if(visited.count(node))continue;
+            res+=dist;
             visited.insert(node);
-            for(const auto& nei:adj[node]){
-                int neiCost=nei.first;
-                int neiNode=nei.second;
-                if(!visited.count(neiNode)){
-                    minH.push({neiCost,neiNode});
+            for(const auto& n:adj[node]){
+                int nDist=n.first;
+                int nNode=n.second;
+                if(!visited.count(nNode)){
+                    minH.push({nDist,nNode});
                 }
             }
         }
