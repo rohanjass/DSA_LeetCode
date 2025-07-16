@@ -6,12 +6,12 @@ public:
         if(visiting.count(crs)) return false;
         if(mp[crs].empty()) return true;
         visiting.insert(crs);
-        for(int c:mp[crs]){
-            if(!dfs(c)) return false;
+        for(int pre:mp[crs]){
+            if(!dfs(pre)) return false;
         }
         visiting.erase(crs);
         mp[crs]={};
-    return true;
+        return true;
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         for(int i=0;i<numCourses;i++){
