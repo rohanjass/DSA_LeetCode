@@ -1,17 +1,16 @@
 class Solution {
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
-        unordered_map<string,vector<string>> adj;
-        for(const auto& ticket:tickets){
-            adj[ticket[0]].push_back(ticket[1]);
+        unordered_map<string,vector<string>>adj;
+        for(const auto& t:tickets){
+            adj[t[0]].push_back(t[1]);
         }
-        for(auto& [src,dest]:adj){
-            sort(dest.rbegin(),dest.rend());
+        for(auto& [src,dst]:adj){
+            sort(dst.rbegin(),dst.rend());
         }
         vector<string> res;
         stack<string> stk;
         stk.push("JFK");
-
         while(!stk.empty()){
             string curr=stk.top();
             if(adj[curr].empty()){
@@ -23,7 +22,7 @@ public:
                 stk.push(next);
             }
         }
-    reverse(res.begin(),res.end());
+        reverse(res.begin(),res.end());
     return res;
     }
 };
