@@ -21,18 +21,18 @@ public:
 
 class Solution {
 public:
-    Node* dfs(Node* node, unordered_map<Node*,Node*>& mp){
+    Node* dfs(Node* node,unordered_map<Node*,Node*>& mp){
         if(node==nullptr) return nullptr;
         if(mp.count(node)) return mp[node];
         Node* copy=new Node(node->val);
         mp[node]=copy;
-        for(auto& nei:node->neighbors){
-            copy->neighbors.push_back(dfs(nei,mp));
+        for(auto& n:node->neighbors){
+            copy->neighbors.push_back(dfs(n,mp));
         }
     return copy;
     }
     Node* cloneGraph(Node* node) {
-        unordered_map<Node*,Node*>mp;
+        unordered_map<Node*,Node*> mp;
         return dfs(node,mp);
     }
 };
