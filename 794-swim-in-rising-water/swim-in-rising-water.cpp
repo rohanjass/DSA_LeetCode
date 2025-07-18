@@ -10,7 +10,9 @@ public:
         while(!minH.empty()){
             auto curr=minH.top();
             minH.pop();
-            int time=curr[0],r=curr[1],c=curr[2];
+            int time=curr[0];
+            int r=curr[1];
+            int c=curr[2];
             if(r==n-1 && c==n-1) return time;
             for(const auto& d:dir){
                 int nr=r+d.first;
@@ -20,7 +22,6 @@ public:
                 minH.push({max(time,grid[nr][nc]),nr,nc});
             }
         }
-
-       return -1;   
+    return -1;
     }
 };
