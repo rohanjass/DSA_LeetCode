@@ -21,9 +21,9 @@ public:
         }
     return prev;
     }
-    ListNode* kthNode(ListNode* node,int k){
-        k-=1;
-        ListNode* temp=node;
+    ListNode* kthNode(ListNode* head,int k){
+        k--;
+        ListNode* temp=head;
         while(temp!=nullptr && k>0){
             k--;
             temp=temp->next;
@@ -34,21 +34,22 @@ public:
         ListNode* temp=head;
         ListNode* prev=nullptr;
         while(temp!=nullptr){
-            ListNode* kthNodeE=kthNode(temp,k);
-            if(kthNodeE==nullptr){
+            ListNode* knode=kthNode(temp,k);
+            if(knode==nullptr){
                 if(prev!=nullptr) prev->next=temp;
                 break;
             }
-            ListNode* nextToKthNode=kthNodeE->next;
-            kthNodeE->next=nullptr;
+            ListNode* next=knode->next;
+            knode->next=nullptr;
             reverseList(temp);
             if(temp==head){
-                head=kthNodeE;
-            } else {
-                prev->next=kthNodeE; 
+               head=knode; 
+            }
+            else{
+                prev->next=knode;
             }
             prev=temp;
-            temp=nextToKthNode;
+            temp=next;
         }
     return head;
     }
