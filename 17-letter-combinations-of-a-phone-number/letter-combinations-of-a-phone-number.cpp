@@ -13,12 +13,13 @@ public:
             dfs(ind+1,digits,path,res);
             path.pop_back();
         }
+        
     }
     vector<string> letterCombinations(string digits) {
-        string path;
-        vector<string>res;
+        vector<string> res;
+        string path="";
         if(digits.size()==0) return res;
         dfs(0,digits,path,res);
-    return res;
+        return res;
     }
 };
