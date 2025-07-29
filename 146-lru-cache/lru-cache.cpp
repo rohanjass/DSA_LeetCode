@@ -1,39 +1,42 @@
 class LRUCache {
 public:
-    class Node {
+    class Node{
         public:
-        int key;
-        int val;
-        Node* next;
-        Node* prev;
-        Node(int _key,int _value){
-            key=_key;
-            val=_value;
-            next=nullptr;
-            prev=nullptr;
-        }
+            int key;
+            int val;
+            Node* next;
+            Node* prev;
+            Node(int _key,int _val){
+                key=_key;
+                val=_val;
+                next=nullptr;
+                prev=nullptr;
+            }
     };
     Node* head=new Node(-1,-1);
     Node* tail=new Node(-1,-1);
     int cap;
     unordered_map<int,Node*> mp;
+
+    void addNode(Node* newNode){
+        Node* temp=head->next;
+        newNode->next=temp; 
+        newNode->prev=head;
+        head->next=newNode;
+        temp->prev=newNode; 
+    }
+    void delNode(Node* node){
+        Node* nextN=node->next;
+        Node* prevN=node->prev;
+        nextN->prev=prevN;
+        prevN->next=nextN;
+    }
+
+
     LRUCache(int capacity) {
         cap=capacity;
         head->next=tail;
         tail->prev=head;
-    }
-    void addNode(Node* newNode){
-        Node* temp=head->next;
-        newNode->prev=head;
-        newNode->next=temp;
-        head->next=newNode;
-        temp->prev=newNode;
-    }
-    void delNode(Node* node){
-        Node* prevNode=node->prev;
-        Node* nextNode=node->next;
-        prevNode->next=nextNode;
-        nextNode->prev=prevNode;
     }
     
     int get(int key) {
@@ -44,14 +47,14 @@ public:
         delNode(keyNode);
         addNode(keyNode);
         mp[key]=keyNode;
-    return value;
+        return value;
     }
     
     void put(int key, int value) {
         if(mp.find(key)!=mp.end()){
-            Node* existNode=mp[key];
+            Node* existingNode=mp[key];
             mp.erase(key);
-            delNode(existNode);
+            delNode(existingNode);
         }
         if(mp.size()==cap){
             mp.erase(tail->prev->key);
