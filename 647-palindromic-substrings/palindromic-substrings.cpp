@@ -1,17 +1,20 @@
 class Solution {
 public:
-    int countSubstrings(string s) {
-        int n=s.size();
-        int totalCount=0;
-        vector<vector<bool>> dp(n,vector<bool>(n,false));
-        for(int i=n-1;i>=0;i--){
-            for(int j=i;j<n;j++){
-                if(s[i]==s[j] && (j-i<=2 || dp[i+1][j-1])){
-                    totalCount++;
-                    dp[i][j]=true;
-                }
-            }
+    int countPal(string s,int l ,int r){
+        int res=0;
+        while(l>=0 && r<s.size() && s[l]==s[r]){
+            res++;
+            l--;
+            r++;
         }
-    return totalCount;
+    return res;
+    }
+    int countSubstrings(string s) {
+        int res=0;
+        for(int i=0;i<s.size();i++){
+            res+=countPal(s,i,i);
+            res+=countPal(s,i,i+1);
+        }
+    return res;
     }
 };
