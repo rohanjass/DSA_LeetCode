@@ -1,18 +1,21 @@
 class Solution {
 public:
-    bool wordBreak(string s, vector<string>& wordDict) {
-        vector<bool>dp(s.size()+1,false);
-        dp[s.size()]=true;
-        for(int i=s.size()-1;i>=0;i--){
-            for(const auto& word:wordDict){
-                if((i+word.size())<=s.size() && s.substr(i,word.size())==word){
-                    dp[i]=dp[i+word.size()];
-                    //ye true tabhi hoga jab uske exctly age wala bhi true ho
-                    //if leet is valid than code should be valid too
+    bool dfs(int i,string s, vector<string>& wordDict, vector<int>& dp){
+        if(i==s.size()){
+            return true;
+        }
+        if(dp[i]!=-1) return dp[i];
+        for(const string& w:wordDict){
+            if(i+w.size() <= s.size() && s.substr(i,w.size())==w){
+                if(dfs(i+w.size(),s,wordDict,dp)){
+                    return dp[i]=true;
                 }
-            if(dp[i]) break;
             }
         }
-    return dp[0];
+    return dp[i]=false;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        vector<int> dp(s.size(),-1);
+        return dfs(0,s,wordDict,dp);
     }
 };
