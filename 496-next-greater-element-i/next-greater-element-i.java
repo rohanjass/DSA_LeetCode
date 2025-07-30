@@ -6,12 +6,13 @@ class Solution {
             while(!st.isEmpty() && st.peek()<n){
                 mp.put(st.pop(),n);
             }
-        st.push(n);
+            st.push(n);
         }
+
         while(!st.isEmpty()){
             mp.put(st.pop(),-1);
-            
         }
+
         int res[]=new int[nums1.length];
         for(int i=0;i<res.length;i++){
             res[i]=mp.get(nums1[i]);
