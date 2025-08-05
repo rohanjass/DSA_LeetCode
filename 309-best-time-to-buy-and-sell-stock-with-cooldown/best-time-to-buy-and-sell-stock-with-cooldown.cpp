@@ -1,25 +1,21 @@
 class Solution {
 public:
-    unordered_map<string,int> dp;
-    int maxProfit(vector<int>& prices) {
-        return dfs(0,true,prices);
-    }
-private:
-    int dfs(int i,bool buying,vector<int>& prices){
+    int dfs(int i,int buying,vector<int>& prices,vector<vector<int>>& dp){
         if(i>=prices.size()) return 0;
-        string key=to_string(i)+"-"+to_string(buying);
-        if(dp.find(key)!=dp.end()) return dp[key];
+        if(dp[i][buying]!=-1) return dp[i][buying];
 
-        int cooldown=dfs(i+1,buying,prices);
-
+        int coolDown=dfs(i+1,buying,prices,dp);
         if(buying){
-            int buy=dfs(i+1,false,prices)-prices[i];
-            dp[key]= max(buy,cooldown);
-        } 
-        else{
-            int sell=dfs(i+2,true,prices)+prices[i];
-            dp[key]= max(sell,cooldown);
+            int buy=dfs(i+1,0,prices,dp)-prices[i];
+            dp[i][buying]=max(buy,coolDown);
+        } else {
+            int sell=dfs(i+2,1,prices,dp)+prices[i];
+            dp[i][buying]=max(sell,coolDown);
         }
-    return dp[key];
+    return dp[i][buying];
+    }
+    int maxProfit(vector<int>& prices) {
+        vector<vector<int>> dp(prices.size(),vector<int>(2,-1));
+        return dfs(0,1,prices,dp);
     }
 };
