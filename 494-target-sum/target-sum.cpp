@@ -4,10 +4,12 @@ public:
         int n=nums.size();
         vector<unordered_map<int,int>>dp(n+1);
         dp[0][0]=1;
+
         for(int i=0;i<n;i++){
             for(auto& p:dp[i]){
-                dp[i+1][p.first+nums[i]]+=p.second;
-                dp[i+1][p.first-nums[i]]+=p.second;
+                int sum=p.first,ways=p.second;
+                dp[i+1][sum+nums[i]]+=ways;
+                dp[i+1][sum-nums[i]]+=ways;
             }
         }
     return dp[n][target];
