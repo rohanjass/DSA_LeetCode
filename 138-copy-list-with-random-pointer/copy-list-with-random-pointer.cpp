@@ -20,39 +20,41 @@ public:
         Node* temp=head;
         while(temp){
             Node* nextTemp=temp->next;
-            Node* copy=new Node(temp->val);
-            copy->next=nextTemp;
-            temp->next=copy;
+            Node* copyNode=new Node(temp->val);
+            temp->next=copyNode;
+            copyNode->next=nextTemp;
             temp=nextTemp;
         }
     }
     void copyRandom(Node* head){
         Node* temp=head;
         while(temp){
-            Node* copynode=temp->next;
+            Node* copyNode=temp->next;
             if(temp->random){
-                copynode->random=temp->random->next;
-            } else{
-                copynode->random=NULL;
+                copyNode->random=temp->random->next;
+            } else {
+                copyNode->random=nullptr;
             }
         temp=temp->next->next;
         }
     }
-    Node* seprateDeepCopy(Node* head){
+
+    Node* seprateList(Node* head){
         Node* temp=head;
         Node* dummy=new Node(-1);
         Node* deepCopy=dummy;
         while(temp && temp->next){
             deepCopy->next=temp->next;
-            temp->next=temp->next->next;//restore back orginal LinkedList
-            temp=temp->next;//moving ahead
+            temp->next=temp->next->next;
+            temp=temp->next;
             deepCopy=deepCopy->next;
         }
     return dummy->next;
     }
+
     Node* copyRandomList(Node* head) {
         insertInBtw(head);
         copyRandom(head);
-        return seprateDeepCopy(head);
+        return seprateList(head);
     }
 };
