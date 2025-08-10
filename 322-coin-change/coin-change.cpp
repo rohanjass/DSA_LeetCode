@@ -11,12 +11,11 @@ public:
                 mini=min(mini,1+ans);
             }
         }
-        
     return dp[amount]=mini;
     }
     int coinChange(vector<int>& coins, int amount) {
         vector<int> dp(amount+1,-1);
-        int ans=dfs(coins,amount,dp);
-            return (ans==INT_MAX)? -1:ans;
+        int res=dfs(coins,amount,dp);
+        return (res==INT_MAX)? -1:res;
     }
 };
