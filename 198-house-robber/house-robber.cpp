@@ -1,19 +1,15 @@
 class Solution {
 public:
-    int dfs(int n,vector<int>& nums,vector<int>& dp){
-        if(n==0){
-            return nums[0];
-        }
-        if(n==1) return max(nums[1],nums[0]);
-        if(dp[n]!=-1) return dp[n];
-        int rob1=dfs(n-1,nums,dp);
-        int rob2=dfs(n-2,nums,dp)+nums[n];
-        dp[n]=max(rob1,rob2);
-    return dp[n];
+    int dfs(int i,vector<int>& nums,vector<int>& dp){
+        if(i>=nums.size()) return 0;
+        if(dp[i]!=-1) return dp[i];
+        int take=nums[i]+dfs(i+2,nums,dp);
+        int notTake=dfs(i+1,nums,dp);
+
+        return dp[i]=max(take,notTake);
     }
     int rob(vector<int>& nums) {
-        int n=nums.size()-1;
-        vector<int>dp(n+1,-1);
-        return dfs(n,nums,dp);
+        vector<int> dp(nums.size()+1,-1);
+        return dfs(0,nums,dp);
     }
 };
