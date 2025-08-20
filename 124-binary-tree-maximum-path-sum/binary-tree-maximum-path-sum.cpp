@@ -11,13 +11,14 @@
  */
 class Solution {
 public:
-    int dfs(TreeNode* node,int& maxi){
-        if(node==nullptr) return 0;
-        int leftSum=max(0,dfs(node->left,maxi));
-        int rightSum=max(0,dfs(node->right,maxi));
+    int dfs(TreeNode* root ,int& maxi){
+        if(root==nullptr) return 0;
 
-        maxi=max(maxi,node->val+leftSum+rightSum);
-        return max(leftSum,rightSum)+node->val;
+        int leftSum=max(0,dfs(root->left,maxi));
+        int rightSum=max(0,dfs(root->right,maxi));
+
+        maxi=max(maxi,leftSum+root->val+rightSum);
+        return max(leftSum,rightSum)+root->val;
     }
     int maxPathSum(TreeNode* root) {
         int maxi=INT_MIN;
