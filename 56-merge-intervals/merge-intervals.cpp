@@ -9,8 +9,7 @@ public:
         for(int i=1;i<n;i++){
             if(res[lastInd][1]>=intervals[i][0]){
                 res[lastInd][1]=max(res[lastInd][1],intervals[i][1]);
-            }
-            else{
+            } else {
                 res.push_back(intervals[i]);
                 lastInd++;
             }
