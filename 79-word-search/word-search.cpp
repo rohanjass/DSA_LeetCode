@@ -1,22 +1,21 @@
 class Solution {
 public:
-    bool dfs(vector<vector<char>>& board, string word,int r,int c,int ind){
+    bool dfs(int ind ,int r ,int c ,vector<vector<char>>& board, string word){
         if(ind==word.size()) return true;
         if(r<0 || c<0 || r>=board.size() || c>=board[0].size() || board[r][c]!=word[ind] || board[r][c]=='!') return false;
         char ch=board[r][c];
         board[r][c]='!';
-        bool l=dfs(board,word,r+1,c,ind+1);
-        bool ri=dfs(board,word,r,c+1,ind+1);
-        bool u=dfs(board,word,r-1,c,ind+1);
-        bool d=dfs(board,word,r,c-1,ind+1);
+        bool left=dfs(ind+1,r+1,c,board,word);
+        bool right=dfs(ind+1,r-1,c,board,word);
+        bool u=dfs(ind+1,r,c+1,board,word);
+        bool d=dfs(ind+1,r,c-1,board,word);
         board[r][c]=ch;
-
-        return l||ri||u||d;
+    return left||right||u||d;
     }
     bool exist(vector<vector<char>>& board, string word) {
         for(int i=0;i<board.size();i++){
             for(int j=0;j<board[0].size();j++){
-                if(dfs(board,word,i,j,0)) return true;
+                if(dfs(0,i,j,board,word)) return true;
             }
         }
     return false;
