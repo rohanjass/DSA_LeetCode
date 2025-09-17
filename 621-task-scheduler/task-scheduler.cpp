@@ -1,16 +1,17 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        vector<int> count(26,0);
+        vector<int>count(26,0);
         for(char c:tasks){
             count[c-'A']++;
         }
         priority_queue<int>maxH;
-        for(int i=0;i<count.size();i++){
-            if(count[i]>0) maxH.push(count[i]);
+        for(int i:count){
+            if(i>0)maxH.push(i);
         }
         queue<pair<int,int>> q;
         int time=0;
+
         while(!maxH.empty() || !q.empty()){
             time++;
             if(maxH.empty()){
