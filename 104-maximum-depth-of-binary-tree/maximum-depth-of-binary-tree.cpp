@@ -15,6 +15,6 @@ public:
         if(root==nullptr) return 0;
         int lMax=maxDepth(root->left);
         int rMax=maxDepth(root->right);
-    return 1+max(lMax,rMax);
+        return 1+max(lMax,rMax);
     }
 };
