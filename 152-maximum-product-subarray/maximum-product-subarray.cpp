@@ -4,10 +4,11 @@ public:
         int res=nums[0];
         int Max=1,Min=1;
         for(int num:nums){
-            int temp=Max*num;
-            Max=max(max(Max*num,Min*num),num);
-            Min=min(min(temp,Min*num),num);
-            res=max(res,Max);
+            int temp=num*Max;
+            Max=max(num,max(num*Max,num*Min));
+            Min=min(num,min(temp,num*Min));
+
+        res=max(res,Max);
         }
     return res;
     }
