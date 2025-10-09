@@ -17,3 +17,9 @@ public:
     return res;
     }
 };
+
+
+
+
+//maintaining decreaing order through-out the deque
+//why not increasing -> don't ensure the max is at dq.back()
