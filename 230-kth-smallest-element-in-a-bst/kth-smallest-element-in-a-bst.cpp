@@ -11,21 +11,18 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* root,vector<int>& a){
-        if(root==nullptr) return;
-        dfs(root->left,a);
-        a[0]--;
-        if(a[0]==0){
-            a[1]=root->val;
-        return;
+    void def(TreeNode* root, int& k,int& res){
+        if(root==nullptr){
+            return;
         }
-        dfs(root->right,a);
-    return;
+        def(root->left,k,res);
+        k-=1;
+        if(k==0) res=root->val;
+        def(root->right,k,res);
     }
     int kthSmallest(TreeNode* root, int k) {
-        vector<int>a(2);
-        a[0]=k;
-        dfs(root,a);
-    return a[1];
+        int res=0;
+        def(root,k,res);
+    return res;
     }
 };
