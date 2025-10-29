@@ -11,12 +11,13 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode* node,long upper ,long lower){
-        if(node==nullptr) return true;
-        if(!(lower<node->val && node->val<upper)) return false;
-        return dfs(node->left,node->val,lower) && dfs(node->right,upper,node->val);
+    bool def(TreeNode* root,long lower,long upper){
+        if(root==nullptr) return true;
+        if(!(lower<root->val && root->val<upper)) return false;
+        return def(root->left,lower,root->val) && def(root->right,root->val,upper);
     }
     bool isValidBST(TreeNode* root) {
-        return dfs(root,LONG_MAX,LONG_MIN);
+        if(root==nullptr) return true;
+        return def(root,LONG_MIN,LONG_MAX);
     }
 };
