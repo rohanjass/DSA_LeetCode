@@ -15,6 +15,7 @@ public:
             if(def(j-1,k,target-nums[j],nums,used)) return true;
 
             used[j]=false;
+            if(target==sumTarget) break;
         }
     return false;
     }
