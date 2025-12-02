@@ -1,20 +1,20 @@
 class Twitter {
+public:
     unordered_map<int,set<int>> followMap;
     unordered_map<int,vector<pair<int,int>>> tweetMap;
     int time=0;
-public:
     Twitter() {
         
     }
     
     void postTweet(int userId, int tweetId) {
-        tweetMap[userId].emplace_back(time++,tweetId);
+        tweetMap[userId].push_back({time++,tweetId});
     }
     
     vector<int> getNewsFeed(int userId) {
         vector<int> res;
-        
-        auto comp=[](const vector<int>& a , const vector<int>& b){
+
+        auto comp=[](const vector<int>& a,const vector<int>& b){
             return a[0]<b[0];
         };
 
@@ -40,17 +40,18 @@ public:
                 maxHeap.push({tweet.first,tweet.second,cur[2],ind-1});
             }
         }
+        
     return res;
     }
     
     void follow(int followerId, int followeeId) {
         if(followerId!=followeeId){
-            followMap[followerId].insert(followeeId);
+           followMap[ followerId].insert(followeeId);
         }
     }
     
     void unfollow(int followerId, int followeeId) {
-        followMap[followerId].erase(followeeId);
+        followMap[ followerId].erase(followeeId);
     }
 };
 
