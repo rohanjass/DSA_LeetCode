@@ -11,18 +11,19 @@
  */
 class Solution {
 public:
-    void dfs(int &cnt,int pathMax,TreeNode* root){
-        if(!root) return;
-        if(root->val >=pathMax){
-        cnt++;
-            pathMax=root->val;
+    
+    void dfs(TreeNode* node,int pathMax,int& cnt){
+        if(node==nullptr) return;
+        if(node->val>=pathMax){
+            cnt++;
+            pathMax=node->val;
         }
-        dfs(cnt,pathMax,root->left);
-        dfs(cnt,pathMax,root->right);
+        dfs(node->right,pathMax,cnt);
+        dfs(node->left,pathMax,cnt);
     }
     int goodNodes(TreeNode* root) {
-        int cnt=0,pathMax=INT_MIN;
-        dfs(cnt,pathMax,root);
-        return cnt;
+        int cnt=0;
+        dfs(root,INT_MIN,cnt);
+    return cnt;
     }
 };
