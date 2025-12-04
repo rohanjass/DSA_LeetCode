@@ -1,25 +1,27 @@
 class Solution {
 public:
-    void dfs(int open,int close,vector<string>& res,string& stackStr){
+    void def(int open,int close,string& path,vector<string>& res){
         if(open==close && open==0){
-            res.push_back(stackStr);
+            res.push_back(path);
         return;
         }
+
         if(open>0){
-            stackStr+='(';
-            dfs(open-1,close,res,stackStr);
-            stackStr.pop_back();
+            path.push_back('(');
+            def(open-1,close,path,res);
+            path.pop_back();
         }
         if(open<close){
-            stackStr+=')';
-            dfs(open,close-1,res,stackStr);
-            stackStr.pop_back();
+            path.push_back(')');
+            def(open,close-1,path,res);
+            path.pop_back();
         }
     }
     vector<string> generateParenthesis(int n) {
         vector<string> res;
-        string stackStr;
-        dfs(n,n,res,stackStr);
+        string path;
+        def(n,n,path,res);
+
     return res;
     }
 };
