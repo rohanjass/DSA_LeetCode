@@ -8,15 +8,16 @@ public:
         }
     return true;
     }
-    void dfs(int ind,string& s,vector<string>& path,vector<vector<string>>& res){
+    void def(int ind,string& s,vector<string>& path,vector<vector<string>>& res){
         if(ind==s.size()){
             res.push_back(path);
         return;
         }
+
         for(int i=ind;i<s.size();i++){
             if(checkPal(s,ind,i)){
                 path.push_back(s.substr(ind,i-ind+1));
-                dfs(i+1,s,path,res);
+                def(i+1,s,path,res);
                 path.pop_back();
             }
         }
@@ -24,7 +25,7 @@ public:
     vector<vector<string>> partition(string s) {
         vector<vector<string>> res;
         vector<string> path;
-        dfs(0,s,path,res);
-        return res;
+        def(0,s,path,res);
+    return res;
     }
 };
