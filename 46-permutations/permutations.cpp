@@ -1,26 +1,30 @@
 class Solution {
 public:
-    void dfs(vector<int>& nums,vector<int>& path,vector<vector<int>>& res,vector<int>& frq){
+    void def(vector<int>& nums,vector<int>& freq,vector<int>& path,vector<vector<int>>& res){
         if(path.size()==nums.size()){
             res.push_back(path);
         return;
         }
+
         for(int i=0;i<nums.size();i++){
-            if(frq[i]==0){
+            if(freq[i]==0){
                 path.push_back(nums[i]);
-                frq[i]=1;
-                dfs(nums,path,res,frq);
-                frq[i]=0;
+                freq[i]=1;
+            
+                def(nums,freq,path,res);
+
                 path.pop_back();
+                freq[i]=0;
             }
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<int>path;
+        vector<int> path;
         vector<vector<int>> res;
-        vector<int>frq(nums.size(),0);
-        for(int i=0;i<nums.size();i++) frq[i]=0;
-        dfs(nums,path,res,frq);
+        vector<int> freq(nums.size(),0);
+
+        def(nums,freq,path,res);
+
     return res;
     }
 };
