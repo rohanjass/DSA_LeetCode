@@ -2,11 +2,11 @@ class Solution {
 public:
     vector<int> partitionLabels(string s) {
         unordered_map<char,int> mp;
-        vector<int> res;
         for(int i=0;i<s.size();i++){
             mp[s[i]]=i;
         }
-        int end=0,size=0;
+        vector<int> res;
+        int size=0,end=0;
         for(int i=0;i<s.size();i++){
             size++;
             end=max(end,mp[s[i]]);
@@ -17,5 +17,4 @@ public:
         }
     return res;
     }
-
 };
