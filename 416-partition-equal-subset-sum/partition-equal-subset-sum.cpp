@@ -1,25 +1,23 @@
 class Solution {
 public:
-    bool part(int i,int target,vector<int>& nums,vector<vector<int>>& dp){
+    bool def(int i,int target,vector<int>& nums,vector<vector<int>>& dp){
         if(target==0) return true;
-        if(i==0) return false;
+        if (target < 0) return false; 
+        if(i>=nums.size()) return false;
         if(dp[i][target]!=-1) return dp[i][target];
-
-        bool notTake=part(i-1,target,nums,dp);
         bool take=false;
         if(nums[i]<=target){
-            take=part(i-1,target-nums[i],nums,dp);
+            take=def(i+1,target-nums[i],nums,dp);
         }
-    return dp[i][target]=notTake || take;
+        int notTake=def(i+1,target,nums,dp);
+        return dp[i][target]=take || notTake;
     }
     bool canPartition(vector<int>& nums) {
         int n=nums.size();
-        int target=0;
-        for(int n:nums){
-            target+=n;
-        }
-        if(target%2!=0) return false;
-        vector<vector<int>> dp(n,vector<int>(target/2+1,-1));
-        return part(n-1,target/2,nums,dp);
+        int sum=0;
+        for(int i=0;i<n;i++) sum+=nums[i];
+        if(sum%2!=0) return false;
+        vector<vector<int>> dp(n,vector<int>(sum/2+1,-1));
+        return def(0,sum/2,nums,dp);
     }
 };
