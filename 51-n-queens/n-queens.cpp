@@ -1,11 +1,10 @@
 class Solution {
 public:
-    void def(int row,int n,vector<string>&board,vector<int>& col,vector<int>&lowerDia,vector<int>&upperDia ,vector<vector<string>>& res){
+    void func(int row,int n,vector<string>& board,vector<int>& col,vector<int>& lowerDia,vector<int>& upperDia,vector<vector<string>>& res){
         if(row==n){
             res.push_back(board);
-            return;
+        return ;
         }
-
         for(int i=0;i<n;i++){
             if(col[i]==0 && lowerDia[n-1+row-i]==0 && upperDia[row+i]==0){
                 board[row][i]='Q';
@@ -13,7 +12,7 @@ public:
                 lowerDia[n-1+row-i]=1;
                 upperDia[row+i]=1;
 
-                def(row+1,n,board,col,lowerDia,upperDia,res);
+                func(row+1,n,board,col,lowerDia,upperDia,res);
 
                 board[row][i]='.';
                 col[i]=0;
@@ -23,14 +22,13 @@ public:
         }
     }
     vector<vector<string>> solveNQueens(int n) {
-        vector<vector<string>> res;
         vector<string> board(n);
+        vector<vector<string>> res;
         string s(n,'.');
-        for(int i=0;i<n;i++){
-            board[i]=s;
-        }
-        vector<int> col(n,0),lowerDia(2*n-1,0),upperDia(2*n-1,0);
-        def(0,n,board,col,lowerDia,upperDia,res);
+        for(int i=0;i<n;i++) board[i]=s;
+
+        vector<int> upperDia(2*n-1,0),lowerDia(2*n-1,0),col(n,0);
+        func(0,n,board,col,lowerDia,upperDia,res);
     return res;
     }
 };
