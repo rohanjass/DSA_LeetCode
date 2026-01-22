@@ -13,8 +13,8 @@ public:
         cuts.push_back(0);
         cuts.push_back(n);
         sort(cuts.begin(),cuts.end());
-        int size=cuts.size();
-        vector<vector<int>>dp (size,vector<int>(size,-1));
-        return def(0,size-1,cuts,dp);
+        int s=cuts.size();
+        vector<vector<int>> dp(s,vector<int>(s,-1));
+        return def(0,s-1,cuts,dp);
     }
 };
