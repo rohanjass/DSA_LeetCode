@@ -2,22 +2,22 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int n=height.size();
-        int l=0,r=n-1,lMax=0,rMax=0,total=0;
+        int l=0,r=n-1,rMax=0,lMax=0,total=0;
         while(l<=r){
             if(height[l]<=height[r]){
-                if(lMax>=height[l]){
+                if(height[l]<=lMax){
                     total+=lMax-height[l];
                 } else {
                     lMax=height[l];
                 }
-                l++;
+            l++;
             } else {
-                if(rMax>=height[r]){
+                if(height[r]<=rMax){
                     total+=rMax-height[r];
                 } else {
                     rMax=height[r];
                 }
-                r--;
+            r--;
             }
         }
     return total;
