@@ -6,15 +6,13 @@ public:
             adj[t[0]].push_back(t[1]);
         }
 
-        for(auto& [src,dst]:adj){
+        for(auto& [arc,dst]:adj){
             sort(dst.rbegin(),dst.rend());
         }
 
         stack<string> st;
         vector<string> res;
-
         st.push("JFK");
-
         while(!st.empty()){
             string curr=st.top();
             if(adj[curr].empty()){
