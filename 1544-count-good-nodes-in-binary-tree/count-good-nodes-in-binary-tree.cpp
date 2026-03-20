@@ -11,19 +11,18 @@
  */
 class Solution {
 public:
-    
-    void dfs(TreeNode* node,int pathMax,int& cnt){
-        if(node==nullptr) return;
-        if(node->val>=pathMax){
+    void func(TreeNode* root,int pathMax,int& cnt){
+        if(root==nullptr) return;
+        if(root->val>=pathMax){
             cnt++;
-            pathMax=node->val;
-        }
-        dfs(node->right,pathMax,cnt);
-        dfs(node->left,pathMax,cnt);
+            pathMax=root->val;
+        } 
+        func(root->left,pathMax,cnt);
+        func(root->right,pathMax,cnt);
     }
     int goodNodes(TreeNode* root) {
         int cnt=0;
-        dfs(root,INT_MIN,cnt);
+        func(root,INT_MIN,cnt);
     return cnt;
     }
 };
