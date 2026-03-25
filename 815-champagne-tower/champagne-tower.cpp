@@ -5,14 +5,12 @@ public:
         dp[0][0]=poured;
         for(int i=0;i<=query_row;i++){
             for(int j=0;j<=i;j++){
-                if(dp[i][j]>1){
-                    double overflow=dp[i][j]-1;
+                if(dp[i][j]<1) continue;
+                double overflow=dp[i][j]-1;
+                dp[i][j]=1;
 
-                    dp[i][j]=1;
-
-                    dp[i+1][j]+=overflow/2.0;
-                    dp[i+1][j+1]+=overflow/2.0;
-                }
+                dp[i+1][j]+=overflow/2.0;
+                dp[i+1][j+1]+=overflow/2.0;
             }
         }
     return dp[query_row][query_glass];
