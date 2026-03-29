@@ -9,20 +9,17 @@ public:
         visited.insert({0,0});
 
         while(!minH.empty()){
-            auto curr=minH.top();
+            auto cur=minH.top();
             minH.pop();
+            int node=cur[0];
+            int r=cur[1];
+            int c=cur[2];
+            if(r==n-1 && c==n-1) return node;
+            for(auto d:dir){
+                int nr=r+d.first;
+                int nc=c+d.second;
 
-            int node=curr[0];
-            int row=curr[1];
-            int col=curr[2];
-
-            if(row==n-1 && col==n-1) return node;
-
-            for(auto& d:dir){
-                int nr=row+d.first;
-                int nc=col+d.second;
-
-                if(nr<0 || nc<0 || nr>=n || nc>=n || visited.count({nr,nc})) continue;
+                if(nr<0 || nc<0 || nr==n || nc==n || visited.count({nr,nc})) continue;
 
                 minH.push({max(node,grid[nr][nc]),nr,nc});
                 visited.insert({nr,nc});
