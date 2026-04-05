@@ -1,27 +1,21 @@
 class Solution {
 public:
-    int findMax(vector<int>& arr){
-        int maxi=INT_MIN;
-        for(int n:arr){
-            maxi=max(maxi,n);
-        }
-    return maxi;
-    }
-    long long totalHrs(vector<int>& piles,int hr){
+    long long totalHours(vector<int>& piles,int h){
         long long total=0;
         for(int n:piles){
-            total+=ceil((double)(n)/(double)(hr));
+            total+=ceil((double)(n)/(double)(h));
         }
     return total;
     }
     int minEatingSpeed(vector<int>& piles, int h) {
-        int low=1,high=findMax(piles);
-        while(low<=high){
-            int mid=low+(high-low)/2;
-            long long hour=totalHrs(piles,mid);
-            if(hour<=h) high=mid-1;
-            else low=mid+1;
+        int maxi=*max_element(piles.begin(),piles.end());
+        int l=1,high=maxi;
+        while(l<=high){
+            int mid=l+(high-l)/2;
+            long long hours=totalHours(piles,mid);
+            if(hours<=h) high=mid-1;
+            else l=mid+1;
         }
-    return low;
+    return l;
     }
 };
