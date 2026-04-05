@@ -1,8 +1,7 @@
 class TimeMap {
-    unordered_map<string,vector<pair<int,string>>>keyStore;
 public:
+    unordered_map<string,vector<pair<int,string>>> keyStore;
     TimeMap() {
-        
     }
     
     void set(string key, string value, int timestamp) {
@@ -10,16 +9,16 @@ public:
     }
     
     string get(string key, int timestamp) {
-        auto& values=keyStore[key];
-        int low=0,high=values.size()-1;
+        auto& arr=keyStore[key];
+        int l=0,h=arr.size()-1;
         string res="";
-        while(low<=high){
-            int mid=(low+high)/2;
-            if(values[mid].first<=timestamp){
-                res=values[mid].second;
-                low=mid+1;
-            } else{
-                high=mid-1;
+        while(l<=h){
+            int mid=(l+h)/2;
+            if(arr[mid].first<=timestamp){
+                res=arr[mid].second;
+                l=mid+1;
+            } else {
+                h=mid-1;
             }
         }
     return res;
