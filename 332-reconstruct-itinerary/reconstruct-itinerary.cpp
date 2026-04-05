@@ -6,25 +6,25 @@ public:
             adj[t[0]].push_back(t[1]);
         }
 
-        for(auto& [arc,dst]:adj){
-            sort(dst.rbegin(),dst.rend());
+        for(auto& [from,to]:adj){
+            sort(to.rbegin(),to.rend());
         }
 
         stack<string> st;
         vector<string> res;
         st.push("JFK");
         while(!st.empty()){
-            string curr=st.top();
-            if(adj[curr].empty()){
-                res.push_back(curr);
-                st.pop();
+            string cur=st.top();
+            if(adj[cur].empty()){
+                res.push_back(cur);
+            st.pop();
             } else {
-                string next=adj[curr].back();
-                adj[curr].pop_back();
+                string next=adj[cur].back();
+                adj[cur].pop_back();
                 st.push(next);
             }
         }
-        reverse(res.begin(),res.end());
+    reverse(res.begin(),res.end());
     return res;
     }
 };
