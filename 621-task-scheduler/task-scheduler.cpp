@@ -6,13 +6,11 @@ public:
         for(char c:tasks){
             count[c-'A']++;
         }
-
         for(int i:count){
             if(i>0) maxH.push(i);
         }
-
-        int time=0;
         queue<pair<int,int>> q;
+        int time=0;
         while(!maxH.empty() || !q.empty()){
             time++;
             if(maxH.empty()){
@@ -20,9 +18,7 @@ public:
             } else {
                 int cnt=maxH.top()-1;
                 maxH.pop();
-                if(cnt>0){
-                    q.push({cnt,time+n});
-                }
+                if(cnt>0) q.push({cnt,time+n});
             }
 
             if(!q.empty() && q.front().second==time){
