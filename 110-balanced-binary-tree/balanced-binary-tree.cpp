@@ -11,18 +11,20 @@
  */
 class Solution {
 public:
-    int def(TreeNode* node){
-        if(node==NULL) return 0;
-        int lh = def(node->left);
+    int func(TreeNode* root){
+        if(root==nullptr) return 0;
+
+        int lh=func(root->left);
         if(lh==-1) return -1;
-        int rh = def(node->right);
+        
+        int rh=func(root->right);
         if(rh==-1) return -1;
 
         if(abs(lh-rh)>1) return -1;
-        return 1+max(lh,rh);
+    return 1+max(rh,lh);
     }
     bool isBalanced(TreeNode* root) {
-        if(root==NULL) return true;
-        return (def(root)!=-1);
+        if(root==nullptr) return true;
+    return (func(root)!=-1);
     }
 };
