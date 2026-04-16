@@ -1,35 +1,38 @@
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        vector<vector<pair<int,int>>>adj(n);
-        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>> > minH;
-        vector<vector<int>> dist(n,vector<int>(k+5,1e6));
+        vector<vector<pair<int,int>>> adj(n);
+        priority_queue<vector<int>,vector<vector<int>>,greater<>> minH;
+        vector<vector<int>> dist(n,vector<int>(k+2,1e9));
 
         for(auto& f:flights){
             adj[f[0]].push_back({f[1],f[2]});
         }
 
-        minH.push({0,{src,-1}});
+        minH.push({0,src,-1});
         dist[src][0]=0;
 
         while(!minH.empty()){
-            auto node=minH.top();
+            auto cur=minH.top();
             minH.pop();
-            int cost=node.first;
-            int flight=node.second.first;
-            int stops=node.second.second;
-            if(flight==dst) return cost;
-            if(stops==k || dist[flight][stops+1]>cost) continue;
 
-            for(auto& [newNode,newCost]:adj[flight]){
-                int newStops=stops+1;
-                if(dist[newNode][newStops+1]>newCost+cost){
-                    dist[newNode][newStops+1]=newCost+cost;
-                    minH.push({dist[newNode][newStops+1],{newNode,newStops}});
+            int cost=cur[0];
+            int node=cur[1];
+            int stops=cur[2];
+
+            if(node==dst) return cost;
+
+            if(stops==k || cost>dist[node][stops+1]) continue;
+
+            for(auto& [nNode,nCost]:adj[node]){
+                int nextStop=stops+1;
+
+                if(dist[nNode][nextStop+1]>nCost+cost){
+                    dist[nNode][nextStop+1]=nCost+cost;
+                    minH.push({nCost+cost,nNode,nextStop});
                 }
             }
         }
-
     return -1;
     }
 };
