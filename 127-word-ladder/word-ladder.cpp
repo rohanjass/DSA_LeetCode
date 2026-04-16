@@ -4,34 +4,36 @@ public:
         unordered_map<string,vector<string>> adj;
         int L=beginWord.size();
 
-        for(string& word:wordList){
+        for(string& s:wordList){
             for(int i=0;i<L;i++){
-                string pattern=word;
+                string pattern=s;
                 pattern[i]='*';
-                adj[pattern].push_back(word);
+                adj[pattern].push_back(s);
             }
         }
 
-        queue<pair<string,int>> q;
         unordered_set<string> visited;
+        queue<pair<string,int>> q;
         q.push({beginWord,1});
         visited.insert(beginWord);
 
         while(!q.empty()){
-            auto [word,level]=q.front();
+            auto cur=q.front();
             q.pop();
 
+            string word=cur.first;
+            int level=cur.second;
+        
             for(int i=0;i<L;i++){
                 string pattern=word;
                 pattern[i]='*';
+                for(auto& N:adj[pattern]){
+                    if(N==endWord) return level+1;
 
-                for(string &nextWord:adj[pattern]){
-                    if(nextWord==endWord) return level+1;
+                    if(visited.count(N))continue;
 
-                    if(!visited.count(nextWord)){
-                        visited.insert(nextWord);
-                        q.push({nextWord,level+1});
-                    }
+                    visited.insert(N);
+                    q.push({N,level+1});
                 }
             }
         }
