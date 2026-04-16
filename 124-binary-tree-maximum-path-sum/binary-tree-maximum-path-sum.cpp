@@ -11,18 +11,18 @@
  */
 class Solution {
 public:
-    int def(TreeNode* root,int& maxi){
+    int func(TreeNode* root,int& maxi){
         if(root==nullptr) return 0;
 
-        int rightSum=max(0,def(root->right,maxi));
-        int leftSum=max(0,def(root->left,maxi));
+        int lh=max(0,func(root->left,maxi));
+        int rh=max(0,func(root->right,maxi));
 
-        maxi=max(maxi,rightSum+root->val+leftSum);
-        return max(leftSum,rightSum)+root->val;
+        maxi=max(maxi,root->val+lh+rh);
+    return max(lh,rh)+root->val;
     }
     int maxPathSum(TreeNode* root) {
         int maxi=INT_MIN;
-        def(root,maxi);
-        return maxi;
+        func(root,maxi);
+    return maxi;
     }
 };
