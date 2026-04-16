@@ -11,15 +11,15 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* root,int depth,vector<int>& res){
+    void func(TreeNode* root,int depth,vector<int>& res){
         if(root==nullptr) return;
         if(depth==res.size()) res.push_back(root->val);
-        dfs(root->right,depth+1,res);
-        dfs(root->left,depth+1,res);
+        func(root->right,depth+1,res);
+        func(root->left,depth+1,res);
     }
     vector<int> rightSideView(TreeNode* root) {
         vector<int> res;
-        dfs(root,0,res);
-        return res;
+        func(root,0,res);
+    return res;
     }
 };
