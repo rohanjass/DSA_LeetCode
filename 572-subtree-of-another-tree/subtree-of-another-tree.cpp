@@ -11,18 +11,18 @@
  */
 class Solution {
 public:
-    bool isSame(TreeNode* root, TreeNode* subRoot){
-        if(root==0 && subRoot==0) return true;
-        if(root && subRoot && root->val==subRoot->val){
-            return isSame(root->left,subRoot->left) && isSame(root->right,subRoot->right);
-        }
-    return false;
+    bool isSame(TreeNode* t1,TreeNode* t2){
+        if(t1==nullptr && t2==nullptr) return true;
+        if(t1==nullptr || t2==nullptr) return false;
+
+        if(t1->val!=t2->val) return false;
+    return isSame(t1->left,t2->left) && isSame(t1->right,t2->right);
     }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
         if(!root) return false;
         if(!subRoot) return true;
-        if(isSame(root,subRoot)) return true;
 
-        return isSubtree(root->left,subRoot) || isSubtree(root->right,subRoot);
+        if(isSame(root,subRoot)) return true;
+    return isSubtree(root->left,subRoot) || isSubtree(root->right,subRoot);
     }
 };
