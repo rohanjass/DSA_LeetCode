@@ -18,11 +18,12 @@ public:
         }
 
         vector<int> safe;
-        
+
         while(!q.empty()){
             int node=q.front();
             q.pop();
             safe.push_back(node);
+
             for(int next:revAdj[node]){
                 outDeg[next]--;
                 if(outDeg[next]==0) q.push(next);
@@ -30,6 +31,6 @@ public:
         }
 
         sort(safe.begin(),safe.end());
-        return safe;
+    return safe;
     }
 };
