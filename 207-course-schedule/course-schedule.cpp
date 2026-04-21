@@ -1,29 +1,31 @@
 class Solution {
 public:
-    unordered_map<int,vector<int>> mp;
-    unordered_set<int> visiting;
-
-    bool def(int c){
-        if(visiting.count(c)) return false;
-        if(mp[c].empty()) return true;
-        visiting.insert(c);
-        for(int i:mp[c]){
-            if(!def(i)) return false;
-        }
-        visiting.erase(c);
-        mp[c]={};
-    return true;
-    }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        for(int i=0;i<numCourses;i++){
-            mp[i]={};
-        }
+        vector<vector<int>> adj(numCourses);
+        vector<int> inDeg(numCourses,0);
+        queue<int> q;
         for(auto& p:prerequisites){
-            mp[p[0]].push_back(p[1]);
+            adj[p[1]].push_back(p[0]);
+            inDeg[p[0]]++;
         }
         for(int i=0;i<numCourses;i++){
-            if(!def(i)) return false;
+            if(inDeg[i]==0) q.push(i);
         }
-    return true;
+
+        int count=0;
+
+        while(!q.empty()){
+            int node=q.front();
+            q.pop();
+            for(int i:adj[node]){
+                inDeg[i]--;
+                if(inDeg[i]==0){
+                    q.push(i);
+                }
+
+            }
+            count++;
+        }
+    return count==numCourses;
     }
 };
