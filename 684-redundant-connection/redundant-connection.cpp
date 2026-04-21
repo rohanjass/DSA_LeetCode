@@ -1,38 +1,34 @@
 class Solution {
 public:
-    int findPar(int n,vector<int>& par){
+    int find(vector<int>& par,int n){
         if(par[n]!=n){
-            par[n]=findPar(par[n],par);
+            par[n]=find(par,par[n]);
         }
     return par[n];
     }
-
     bool unionFind(int n1,int n2,vector<int>& par,vector<int>& rank){
-        int p1=findPar(n1,par);
-        int p2=findPar(n2,par);
-
+        int p1=find(par,n1);
+        int p2=find(par,n2);
         if(p1==p2){
-            return false;
+            return true;
         }
-        if(rank[p1]>=rank[p2]){
+        if(rank[p1]>rank[p2]){
             par[p2]=p1;
             rank[p1]+=rank[p2];
-        } else{
+        } else {
             par[p1]=p2;
             rank[p2]+=rank[p1];
         }
-    return true;
+    return false;
     }
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n=edges.size();
-
-        vector<int> par(n+1),rank(n+1,1);
-        for(int i=0;i<n;i++){
+        vector<int> rank(n+1,1),par(n+1);
+        for(int i=1;i<n+1;i++){
             par[i]=i;
         }
-
-        for(auto const& e:edges){
-            if(!unionFind(e[0],e[1],par,rank)) return {e[0],e[1]};
+        for(auto& e:edges){
+            if(unionFind(e[0],e[1],par,rank)) return {e[0],e[1]};
         }
     return {};
     }
