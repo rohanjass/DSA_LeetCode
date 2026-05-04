@@ -1,26 +1,38 @@
 class Solution {
 public:
-    vector<pair<int,int>> dir={{1,0},{0,1},{-1,0},{0,-1}};
-    void def(int r,int c ,vector<vector<char>>& arr){
-        arr[r][c]='0';
-        for(auto d:dir){
-            int nr=r+d.first;
-            int nc=c+d.second;
-            if(nr<0 || nc<0 || nr>= arr.size() || nc>=arr[0].size() || arr[nr][nc]=='0') continue;
-            def(nr,nc,arr);
-        }
-    }
     int numIslands(vector<vector<char>>& grid) {
-        int island=0;
+        int res = 0;
+        int m = grid.size(), n = grid[0].size();
 
-        for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[0].size();j++){
-                if(grid[i][j]=='1'){
-                    island++;
-                    def(i,j,grid);
+        vector<pair<int, int>> dir = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        queue<pair<int, int>> q;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    res++;
+                    q.push({i, j});
+                    grid[i][j] = '0';
+
+                    while (!q.empty()) {
+                        auto [r, c] = q.front();
+                        q.pop();
+
+                        for (auto d : dir) {
+                            int nr = r + d.first;
+                            int nc = c + d.second;
+
+                            if (nr < 0 || nc < 0 || nr == grid.size() ||
+                                nc == grid[0].size() || grid[nr][nc] != '1')
+                                continue;
+                            
+
+                            q.push({nr,nc});
+                            grid[nr][nc]='0';
+                        }
+                    }
                 }
             }
         }
-    return island;
+        return res;
     }
 };
