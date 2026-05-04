@@ -5,7 +5,7 @@ public:
         for(const auto& s:strs){
             string sortedS=s;
             sort(sortedS.begin(),sortedS.end());
-            mp[sortedS].push_back(s);
+        mp[sortedS].push_back(s);
         }
         vector<vector<string>> res;
         for(auto& p:mp){
