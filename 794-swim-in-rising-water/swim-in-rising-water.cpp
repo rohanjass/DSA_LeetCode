@@ -14,13 +14,14 @@ public:
             int node=cur[0];
             int r=cur[1];
             int c=cur[2];
+
             if(r==n-1 && c==n-1) return node;
+
             for(auto d:dir){
                 int nr=r+d.first;
                 int nc=c+d.second;
 
                 if(nr<0 || nc<0 || nr==n || nc==n || visited.count({nr,nc})) continue;
-
                 minH.push({max(node,grid[nr][nc]),nr,nc});
                 visited.insert({nr,nc});
             }
