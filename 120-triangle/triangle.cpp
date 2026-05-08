@@ -3,9 +3,10 @@ public:
     int minimumTotal(vector<vector<int>>& triangle) {
         int n=triangle.size();
         vector<int> dp=triangle[n-1];
-        for(int r=n-2;r>=0;r--){
-            for(int c=0;c<triangle[r].size();c++){
-                dp[c]=triangle[r][c]+min(dp[c],dp[c+1]);
+
+        for(int i=n-2;i>=0;i--){
+            for(int j=0;j<triangle[i].size();j++){
+                dp[j]=triangle[i][j]+min(dp[j],dp[j+1]);
             }
         }
     return dp[0];
