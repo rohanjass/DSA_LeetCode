@@ -2,7 +2,10 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int n=height.size();
-        int l=0,r=n-1,rMax=0,lMax=0,total=0;
+        int lMax=0,rMax=0;
+        int l=0,r=n-1;
+        int total=0;
+
         while(l<=r){
             if(height[l]<=height[r]){
                 if(height[l]<=lMax){
