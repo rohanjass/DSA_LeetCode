@@ -33,7 +33,7 @@ public:
         int root=find(1);
         int res=INT_MAX;
         for(auto& road:roads){
-            if(find(road[0])==root){
+            if(find(road[1])==root){
                 res=min(res,road[2]);
             }
         }
