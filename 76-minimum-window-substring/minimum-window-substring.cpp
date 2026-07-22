@@ -1,22 +1,24 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        vector<int> mp(128,0);
         int n=s.size();
-        for(char i:t){
-            mp[i]++;
+        vector<int> mp(128,0);
+
+        for(char c:t){
+            mp[c]++;
         }
 
-        int l=0,minWin=INT_MAX,minInd=-1,count=0;
+        int l=0,resLen=INT_MAX,resInd=-1,count=0;
 
         for(int r=0;r<n;r++){
             if(mp[s[r]]>0) count++;
             mp[s[r]]--;
 
             while(count==t.size()){
-                if((r-l+1)<minWin){
-                    minWin=r-l+1;
-                    minInd=l;
+                
+                if((r-l+1)<resLen){
+                    resLen=r-l+1;
+                    resInd=l;
                 }
 
                 mp[s[l]]++;
@@ -24,6 +26,6 @@ public:
                 l++;
             }
         }
-    return (minInd==-1)? "":s.substr(minInd,minWin);
+    return (resInd==-1)? "": s.substr(resInd,resLen);
     }
 };
