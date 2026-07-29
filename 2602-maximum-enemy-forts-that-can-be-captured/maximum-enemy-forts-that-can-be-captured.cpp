@@ -2,16 +2,16 @@ class Solution {
 public:
     int captureForts(vector<int>& forts) {
         int n=forts.size();
-        int prev=-1;
-        int maxForts=0;
+        int j=-2;
+        int res=0;
         for(int i=0;i<n;i++){
             if(forts[i]!=0){
-                if(prev!=-1 && forts[prev]!=forts[i]){
-                    maxForts=max(maxForts,i-prev-1);
+                if(j!=-2 && forts[i]!=forts[j]){
+                   res=max(res,i-j-1);
                 }
-                prev=i;
+                   j=i; 
             }
         }
-    return maxForts;
+    return res;
     }
 };
