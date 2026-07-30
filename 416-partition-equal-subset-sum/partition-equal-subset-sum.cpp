@@ -1,23 +1,23 @@
 class Solution {
 public:
-    bool def(int i,int target,vector<int>& nums,vector<vector<int>>& dp){
+    bool func(int i,int target,vector<int>& nums,vector<vector<int>>& dp){
         if(target==0) return true;
-        if (target < 0) return false; 
-        if(i>=nums.size()) return false;
+        if(i==nums.size()) return false;
         if(dp[i][target]!=-1) return dp[i][target];
+        bool notTake=func(i+1,target,nums,dp);
         bool take=false;
-        if(nums[i]<=target){
-            take=def(i+1,target-nums[i],nums,dp);
+        if(target-nums[i]>=0){
+            take=func(i+1,target-nums[i],nums,dp);
         }
-        int notTake=def(i+1,target,nums,dp);
-        return dp[i][target]=take || notTake;
+    return dp[i][target]=take || notTake;
     }
     bool canPartition(vector<int>& nums) {
         int n=nums.size();
-        int sum=0;
-        for(int i=0;i<n;i++) sum+=nums[i];
-        if(sum%2!=0) return false;
-        vector<vector<int>> dp(n,vector<int>(sum/2+1,-1));
-        return def(0,sum/2,nums,dp);
+        int total=accumulate(nums.begin(),nums.end(),0);
+        if(total%2!=0) return false;
+        int target=total/2;
+        vector<vector<int>> dp(n,vector<int>(target+1,-1));
+
+    return func(0,target,nums,dp);
     }
 };
